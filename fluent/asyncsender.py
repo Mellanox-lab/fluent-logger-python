@@ -3,8 +3,7 @@
 import threading
 from queue import Queue, Full, Empty
 
-from fluent import sender
-from fluent.sender import EventTime
+from .sender import EventTime, FluentSender
 
 __all__ = ["EventTime", "FluentSender"]
 
@@ -36,7 +35,7 @@ def close():  # pragma: no cover
     get_global_sender().close()
 
 
-class FluentSender(sender.FluentSender):
+class FluentSender(FluentSender):
     def __init__(self,
                  tag,
                  host='localhost',

@@ -1,16 +1,15 @@
 # -*- coding: utf-8 -*-
 
-from fluent import asyncsender
-from fluent import handler
+from .handler import FluentHandler
+from .asyncsender import FluentSender
 
-
-class FluentHandler(handler.FluentHandler):
+class FluentHandler(FluentHandler):
     '''
     Asynchronous Logging Handler for fluent.
     '''
 
     def getSenderClass(self):
-        return asyncsender.FluentSender
+        return FluentSender
 
     def close(self):
         self.acquire()
