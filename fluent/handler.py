@@ -9,7 +9,7 @@ try:
 except ImportError:  # pragma: no cover
     import json
 
-from fluent import sender
+from .sender import FluentSender, EventTime
 
 
 class FluentRecordFormatter(logging.Formatter, object):
@@ -199,7 +199,7 @@ class FluentHandler(logging.Handler):
         logging.Handler.__init__(self)
 
     def getSenderClass(self):
-        return sender.FluentSender
+        return FluentSender
 
     @property
     def sender(self):
@@ -232,7 +232,7 @@ class FluentHandler(logging.Handler):
         data = self.format(record)
         _sender = self.sender
         return _sender.emit_with_time(None,
-                                      sender.EventTime(record.created)
+                                      EventTime(record.created)
                                       if _sender.nanosecond_precision
                                       else int(record.created),
                                       data)
