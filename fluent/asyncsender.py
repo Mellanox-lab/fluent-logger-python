@@ -74,6 +74,11 @@ class FluentSender(FluentSender):
         self._send_thread.daemon = True
         self._send_thread.start()
 
+    def write(self, label, data, close_connection=True):
+        self.emit(label=label, data=data)
+        if close_connection:
+            self.close()
+
     def close(self, flush=True):
         with self.lock:
             if self._closed:
